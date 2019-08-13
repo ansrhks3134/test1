@@ -1,6 +1,10 @@
 package Servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -8,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import DBPKG.DAO;
+import DBPKG.DTO;
 
 /**
  * Servlet implementation class write
@@ -37,9 +42,17 @@ public class write extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	    DAO dao = DAO.getInstance();
-	    int row =0;
+	    int stubun = Integer.parseInt(request.getParameter("stubun"));	
+	    System.out.println(request.getParameter("stubun"));
+	    int row = dao.write(stubun);
+	    List<DTO> list = new ArrayList<DTO>();
 	    
-	    dao.write();
+	    if(row != 0) {
+	    	
+	    	RequestDispatcher rd = request.getRequestDispatcher("write.jsp");
+	    	rd.forward(request, response);
+	    }
+	    
 	}
 
 }

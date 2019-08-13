@@ -17,22 +17,29 @@ public class DAO {
 		return con;
 	}
 	
-	public int write() {
+	public int write(int stubun) {
 		int row = 0;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String query = "insert into table_01 values(?,?,?,?,?)";
+		String query = "insert into table_01 values("+stubun+",?,?,?,?)";
 		DTO vo = new DTO();
 		try {
 			con = getConnection();
 			pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, vo.getStubun());
-			pstmt.setString(2, vo.getStuname());
-			pstmt.setString(3, vo.getStuaddr());
-			pstmt.setString(4, vo.getStuphone());
-			pstmt.setString(5, vo.getStubirth());
-			row = pstmt.executeUpdate();			
+			pstmt.setString(1, vo.getStuname());
+			pstmt.setString(2, vo.getStuaddr());
+			pstmt.setString(3, vo.getStuphone());
+			pstmt.setString(4, vo.getStubirth());
+				
+			if(stubun != vo.getStubun()) {
+				System.out.println(stubun);
+				pstmt.setInt(stubun, vo.getStubun());
+				row = pstmt.executeUpdate();	
+				System.out.println(row);
+			}else {
+				row = 0;
+			}		
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {

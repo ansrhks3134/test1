@@ -1,10 +1,12 @@
+<%@page import="java.util.List"%>
+<%@page import="DBPKG.DTO"%>
 <%@page import="DBPKG.DAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%
+<%
+List list = 
+%>
 
-    
-    %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -80,31 +82,27 @@ table{margin: auto;}
 <table border="1">
 
 	<tr>
-		<td colspan="2">학생정보등록</td>
+		<td colspan="5">학생 정보 목록 조회/수정</td>
 	</tr>
 	<tr>
 		<td>학번</td>
-		<td><input type="text" name="stubun"></td>
-	</tr>
-	<tr>
 		<td>이름</td>
-		<td><input type="text" name="stuname"></td>
-	</tr>
-	<tr>
 		<td>주소</td>
-		<td><input type="text" name="stuaddr"></td>
-	</tr>
-	<tr>
 		<td>전화</td>
-		<td><input type="text" name="stuphone"></td>
-	</tr>
-	<tr>
 		<td>생년월일</td>
-		<td><input type="text" name="stubirth"></td>
 	</tr>
+	
+<%
+	for(int i=0;)
+%>
 	<tr>
-		<td colspan="2"><input type="button" value="[등록]" onclick="send()">&nbsp;[조회]</td>
+		<td>vo.stubun</td>
+		<td>vo.stuname</td>
+		<td>vo.stuaddr</td>
+		<td>vo.stuphone</td>
+		<td>vo.stubirth</td>	
 	</tr>	
+
 </table>
 	</form>
 <footer>
