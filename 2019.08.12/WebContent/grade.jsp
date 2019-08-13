@@ -1,10 +1,14 @@
+<%@page import="java.util.List"%>
+<%@page import="DBPKG.DTO"%>
 <%@page import="DBPKG.DAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%
+<%
+request.setCharacterEncoding("utf-8");
+DAO dao = DAO.getInstance();
+List<DTO> list = new ArrayList<DTO>();
+%>
 
-    
-    %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,8 +25,8 @@ table{margin: auto;}
 
 	function send(){
 		var phone = frm.stuphone.value;
-		var phone1 = /^\d{3}-\d{3,4}-\d{4}$/;
-		var phone2 = /^\d{3}\d{3,4}\d{4}$/;
+// 		var phone1 = /^\d{3}-\d{3,4}-\d{4}$/;
+// 		var phone2 = /^\d{3}\d{3,4}\d{4}$/;
 		//var phone1 =  "/[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/gi";	//-/g : 글로벌 (전체)
 		if(frm.stubun.value==""){
 			alert("학번을 입력하세요");
@@ -44,24 +48,12 @@ table{margin: auto;}
 			frm.stuphone.focus();
 			return;
 		}
-		if(!phone1.test(phone)){
-			var t = phone.replace(phone1,"");
-			//alert("1234"+t);
-			phone = t;
-			//phone1 = frm.stuphone.value.replace(/\-/g,"");
-			return;
-		}
-// 		if(!phone2.test(phone)){
-// 			var t = phone.replace(phone2,"");
-// 			phone = t;
-// 			return;
-// 		}
 		if(frm.stubirth.value==""){
 			alert("생년월일을 입력하세요");
 			frm.stubirth.focus();
 			return;
 		}
-		frm.action="write_pro.jsp";
+		frm.action="write?stubun="+frm.stubun.value;
 		frm.submit();
 	}
 </script>
@@ -80,31 +72,27 @@ table{margin: auto;}
 <table border="1">
 
 	<tr>
-		<td colspan="2">학생정보등록</td>
+		<td colspan="5">학생 성적 조회</td>
 	</tr>
 	<tr>
 		<td>학번</td>
-		<td><input type="text" name="stubun"></td>
-	</tr>
-	<tr>
 		<td>이름</td>
-		<td><input type="text" name="stuname"></td>
-	</tr>
-	<tr>
-		<td>주소</td>
-		<td><input type="text" name="stuaddr"></td>
-	</tr>
-	<tr>
-		<td>전화</td>
-		<td><input type="text" name="stuphone"></td>
-	</tr>
-	<tr>
 		<td>생년월일</td>
-		<td><input type="text" name="stubirth"></td>
+		<td>총점</td>
+		<td>평균</td>
 	</tr>
+	
+<%
+	for(int i=0;i<list.size();i++){
+%>
 	<tr>
-		<td colspan="2"><input type="button" value="[등록]" onclick="send()">&nbsp;[조회]</td>
+		<td><a href="edit?stubun="<%=list.get(i).getStubun() %>><%=list.get(i).getStubun() %></a></td>
+		<td><%=list.get(i).getStuname() %></td>
+		<td><%=list.get(i).getStuaddr() %></td>
+		<td><%=list.get(i).getStuphone() %></td>
+		<td><%=list.get(i).getStubirth() %></td>	
 	</tr>	
+<%} %>
 </table>
 	</form>
 <footer>

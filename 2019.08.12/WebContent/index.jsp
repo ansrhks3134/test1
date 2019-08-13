@@ -16,7 +16,7 @@
 <nav>
 	<ul class="na">
 		<li><a href="write.jsp">학생등록</a></li>
-		<li>학생목록 조회/수정</li>
+		<li><a href="list.jsp">학생목록 조회/수정</a></li>
 		<li>학생성적조회</li>
 		<li>홈으로</li>	
 	</ul>

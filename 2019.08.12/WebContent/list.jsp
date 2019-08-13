@@ -4,7 +4,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-List list = 
+request.setCharacterEncoding("utf-8");
+DAO dao = DAO.getInstance();
+List<DTO> list = new ArrayList<DTO>();
 %>
 
 <!DOCTYPE html>
@@ -23,8 +25,8 @@ table{margin: auto;}
 
 	function send(){
 		var phone = frm.stuphone.value;
-		var phone1 = /^\d{3}-\d{3,4}-\d{4}$/;
-		var phone2 = /^\d{3}\d{3,4}\d{4}$/;
+// 		var phone1 = /^\d{3}-\d{3,4}-\d{4}$/;
+// 		var phone2 = /^\d{3}\d{3,4}\d{4}$/;
 		//var phone1 =  "/[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/gi";	//-/g : 글로벌 (전체)
 		if(frm.stubun.value==""){
 			alert("학번을 입력하세요");
@@ -46,18 +48,6 @@ table{margin: auto;}
 			frm.stuphone.focus();
 			return;
 		}
-		if(!phone1.test(phone)){
-			var t = phone.replace(phone1,"");
-			//alert("1234"+t);
-			phone = t;
-			//phone1 = frm.stuphone.value.replace(/\-/g,"");
-			return;
-		}
-// 		if(!phone2.test(phone)){
-// 			var t = phone.replace(phone2,"");
-// 			phone = t;
-// 			return;
-// 		}
 		if(frm.stubirth.value==""){
 			alert("생년월일을 입력하세요");
 			frm.stubirth.focus();
@@ -93,16 +83,16 @@ table{margin: auto;}
 	</tr>
 	
 <%
-	for(int i=0;)
+	for(int i=0;i<list.size();i++){
 %>
 	<tr>
-		<td>vo.stubun</td>
-		<td>vo.stuname</td>
-		<td>vo.stuaddr</td>
-		<td>vo.stuphone</td>
-		<td>vo.stubirth</td>	
+		<td><a href="edit.jsp?stubun="<%=list.get(i).getStubun() %>><%=list.get(i).getStubun() %></a></td>
+		<td><%=list.get(i).getStuname() %></td>
+		<td><%=list.get(i).getStuaddr() %></td>
+		<td><%=list.get(i).getStuphone() %></td>
+		<td><%=list.get(i).getStubirth() %></td>	
 	</tr>	
-
+<%} %>
 </table>
 	</form>
 <footer>

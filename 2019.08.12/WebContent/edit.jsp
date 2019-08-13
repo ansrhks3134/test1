@@ -1,10 +1,13 @@
+<%@page import="DBPKG.DTO"%>
 <%@page import="DBPKG.DAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%
-
-    
-    %>
+<%
+DAO dao = DAO.getInstance();
+DTO vo = new DTO();
+int stubun = Integer.parseInt(request.getParameter("stubun"));
+vo = dao.search(stubun);
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -44,24 +47,13 @@ table{margin: auto;}
 			frm.stuphone.focus();
 			return;
 		}
-		if(!phone1.test(phone)){
-			var t = phone.replace(phone1,"");
-			//alert("1234"+t);
-			phone = t;
-			//phone1 = frm.stuphone.value.replace(/\-/g,"");
-			return;
-		}
-// 		if(!phone2.test(phone)){
-// 			var t = phone.replace(phone2,"");
-// 			phone = t;
-// 			return;
-// 		}
+
 		if(frm.stubirth.value==""){
 			alert("생년월일을 입력하세요");
 			frm.stubirth.focus();
 			return;
 		}
-		frm.action="write_pro.jsp";
+		frm.action="edit_pro.jsp";
 		frm.submit();
 	}
 </script>
@@ -84,23 +76,23 @@ table{margin: auto;}
 	</tr>
 	<tr>
 		<td>학번</td>
-		<td><input type="text" name="stubun"></td>
+		<td><input type="text" name="stubun" value="<%=vo.getStubun()%>"></td>
 	</tr>
 	<tr>
 		<td>이름</td>
-		<td><input type="text" name="stuname"></td>
+		<td><input type="text" name="stuname" value="<%=vo.getStuname()%>"></td>
 	</tr>
 	<tr>
 		<td>주소</td>
-		<td><input type="text" name="stuaddr"></td>
+		<td><input type="text" name="stuaddr" value="<%=vo.getStuaddr()%>"></td>
 	</tr>
 	<tr>
 		<td>전화</td>
-		<td><input type="text" name="stuphone"></td>
+		<td><input type="text" name="stuphone" value="<%=vo.getStuphone()%>"></td>
 	</tr>
 	<tr>
 		<td>생년월일</td>
-		<td><input type="text" name="stubirth"></td>
+		<td><input type="text" name="stubirth" value="<%=vo.getStubirth()%>"></td>
 	</tr>
 	<tr>
 		<td colspan="2"><input type="button" value="[등록]" onclick="send()">&nbsp;[조회]</td>
